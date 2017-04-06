@@ -9,7 +9,7 @@ Install `cookiecutter` command line: `pip install cookiecutter`
 
 Usage
 -----
-Generate a new Cookiecutter template layout: `cookiecutter gh:kitconcept/cookiecutter-plone`    
+Generate a new Cookiecutter template layout: `cookiecutter gh:plone/cookiecutter-plone`    
 
 License
 -------
