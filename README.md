@@ -5,11 +5,11 @@ A Cookiecutter template for the Plone CMS
 
 Requirements
 ------------
-Install `cookiecutter` command line: `pip install cookiecutter`    
+Install `cookiecutter` command line: `pip install cookiecutter`
 
 Usage
 -----
-Generate a new Cookiecutter template layout: `cookiecutter gh:plone/cookiecutter-plone`    
+Generate a new Cookiecutter template layout: `cookiecutter gh:kitconcept/cookiecutter-plone`
 
 License
 -------
