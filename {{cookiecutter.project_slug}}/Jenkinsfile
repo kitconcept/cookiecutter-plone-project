@@ -1,0 +1,144 @@
+#!groovy
+
+pipeline {
+
+  agent any
+
+  stages {
+
+    // Build
+    stage('Build') {
+      agent {
+        label 'node'
+      }
+      steps {
+        deleteDir()
+        checkout scm
+        sh 'make build'
+        sh 'tar cfz build.tgz Makefile bin develop-eggs include lib parts src *.cfg requirements.txt'
+        stash includes: 'build.tgz', name: 'build.tgz'
+      }
+    }
+
+    // Static Code Analysis
+    stage('Static Code Analysis') {
+      agent {
+        label 'node'
+      }
+      steps {
+        deleteDir()
+        unstash 'build.tgz'
+        sh 'tar xfz build.tgz'
+        sh 'make code-analysis'
+      }
+      post {
+        always {
+          step([$class: 'WarningsPublisher',
+            parserConfigurations: [[
+              parserName: 'Pep8',
+              pattern: 'parts/code-analysis/flake8.log'
+            ]],
+            unstableTotalAll: '0',
+            usePreviousBuildAsReference: true
+          ])
+        }
+      }
+    }
+
+    // Unit Tests
+    stage('Unit Tests') {
+      agent {
+        label 'node'
+      }
+      steps {
+        deleteDir()
+        unstash 'build.tgz'
+        sh 'tar xfz build.tgz'
+        sh 'make test'
+      }
+      post {
+        always {
+          step([
+            $class: 'JUnitResultArchiver',
+            testResults: 'parts/test/testreports/*.xml'
+          ])
+        }
+      }
+    }
+
+    // Acceptance Tests
+    stage('Acceptance Tests') {
+      agent {
+        label 'node'
+      }
+      steps {
+        deleteDir()
+        unstash 'build.tgz'
+        sh 'tar xfz build.tgz'
+        wrap([$class: 'Xvfb']) {
+          sh 'make test-acceptance'
+        }
+      }
+      post {
+        always {
+          step([
+            $class: 'RobotPublisher',
+            disableArchiveOutput: false,
+            logFileName: 'parts/test/robot_log.html',
+            onlyCritical: true,
+            otherFiles: '**/*.png',
+            outputFileName: 'parts/test/robot_output.xml',
+            outputPath: '.',
+            passThreshold: 100,
+            reportFileName: 'parts/test/robot_report.html',
+            unstableThreshold: 0
+          ]);
+        }
+      }
+    }
+
+    // Deployment
+    stage('Deployment') {
+      agent {
+        label 'kitconcept.io'
+      }
+      when {
+        branch 'master'
+      }
+      steps {
+        lock('deployment-{{cookiecutter.project_slug}}') {
+          sh 'cd /srv/{{cookiecutter.project_slug}}/ && git fetch --all && git reset --hard origin/master'
+          sh 'cd /srv/{{cookiecutter.project_slug}}/ && bin/buildout -c staging.cfg'
+          sh 'cd /srv/{{cookiecutter.project_slug}}/ && bin/instance restart'
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      slackSend (
+        color: 'good',
+        message: "SUCCESS: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
+      )
+    }
+    failure {
+      slackSend (
+        color: 'danger',
+        message: "FAILURE: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
+      )
+    }
+    unstable {
+      slackSend (
+        color: 'warning',
+        message: "UNSTABLE: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
+      )
+    }
+    aborted {
+      slackSend (
+        color: 'danger',
+        message: "ABORTED: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
+      )
+    }
+  }
+}
