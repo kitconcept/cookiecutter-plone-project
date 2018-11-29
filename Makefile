@@ -25,6 +25,12 @@ setup: ## Create virtualenv and install dependencies
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
 
+.PHONY: generate
+generate: ## Create a sample package
+	@echo "$(GREEN)==> Creating new test package$(RESET)"
+	rm -rf projectname
+	./bin/cookiecutter . --no-input
+
 .PHONY: test
 test: ## Create a sample package and tests it (runs buildout)
 	@echo "$(GREEN)==> Creating new test package$(RESET)"

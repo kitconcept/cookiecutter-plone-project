@@ -46,13 +46,13 @@ Continous Integration: https://jenkins.kitconcept.io/job/kitconcept/job/{{cookie
 Project Management
 ------------------
 
-Trello: https://trello.com/...
-Harvest: https://kitconcept.harvestapp.com/projects/...
+Trello: https://trello.com/ ...
+Harvest: ...
 
 
 Server
 ------
 
-Live: www.example.com
+Live: ...
 Staging: {{cookiecutter.project_slug}}.kitconcept.io (Deploy automatically from master branch)
 
