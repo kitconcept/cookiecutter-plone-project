@@ -3,7 +3,7 @@
    This text does not appear on pypi or github. It is a comment.
 
 ==============================================================================
-{{cookiecutter.project_title}}
+{{cookiecutter.project_name}}
 ==============================================================================
 
 .. image:: https://raw.githubusercontent.com/kitconcept/{{cookiecutter.project_slug}}.core/master/kitconcept.png
