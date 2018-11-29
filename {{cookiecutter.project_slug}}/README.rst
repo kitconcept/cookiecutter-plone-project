@@ -3,8 +3,13 @@
    This text does not appear on pypi or github. It is a comment.
 
 ==============================================================================
-{{cookiecutter.project_name}}
+DPG - Deutsche Physikalische Gesellschaft (www.dpg-physik.de)
 ==============================================================================
+
+.. image:: https://raw.githubusercontent.com/kitconcept/dpg.core/master/kitconcept.png
+   :alt: kitconcept
+   :target: https://kitconcept.com/
+
 
 Development
 -----------
@@ -34,19 +39,20 @@ Run Robot Framework based acceptance tests::
 Code
 ----
 
-Code Repository: https://github.com/kitconcept/{{cookiecutter.project_slug}}
-Continous Integration: https://jenkins.kitconcept.io/job/kitconcept/job/{{cookiecutter.project_slug}}/
+Code Repository: https://github.com/kitconcept/dpg
+Continous Integration: https://jenkins.kitconcept.io/job/kitconcept/job/dpg/
 
 
 Project Management
 ------------------
 
-Trello: https://trello.com/...
-Harvest: https://kitconcept.harvestapp.com/projects/...
+Trello: https://trello.com/b/FXLiZirx/dpg-relaunch-2018
+Harvest: https://kitconcept.harvestapp.com/projects/17649167
 
 
 Server
 ------
 
-Live: ...
-Staging: {{cookiecutter.project_slug}}.kitconcept.io (Deploy automatically from master branch)
+Live: www.dpg-physik.de
+Staging: dpg.kitconcept.io (Deploy automatically from master branch)
+
