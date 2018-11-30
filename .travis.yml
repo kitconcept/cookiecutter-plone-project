@@ -20,5 +20,5 @@ before_install:
 install:
   - cookiecutter https://github.com/kitconcept/cookiecutter-plone.git --no-input
 script:
-  - (cd ProjectName && make build)
-  - (cd ProjectName && make test)
+  - (cd projectname && make build)
+  - (cd projectname && make test)
