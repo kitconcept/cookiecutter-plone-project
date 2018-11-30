@@ -13,7 +13,7 @@ from zope import schema
 # from plone.namedfile import field as namedfile
 
 
-class I{{cookiecutter.project_name}}CoreLayer(IDefaultBrowserLayer):
+class I{{cookiecutter.project_slug.capitalize()}}CoreLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
