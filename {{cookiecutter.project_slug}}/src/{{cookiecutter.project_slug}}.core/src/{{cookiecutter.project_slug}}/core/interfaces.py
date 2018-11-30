@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
-
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from {{cookiecutter.project_slug}}.core import _
 from plone.supermodel import model
 from zope import schema
@@ -11,6 +11,10 @@ from zope import schema
 # from plone.autoform import directives
 # from plone.namedfile.field import NamedBlobImage
 # from plone.namedfile import field as namedfile
+
+
+class I{{cookiecutter.project_title}}CoreLayer(IDefaultBrowserLayer):
+    """Marker interface that defines a browser layer."""
 
 
 class IHomepage(model.Schema):
