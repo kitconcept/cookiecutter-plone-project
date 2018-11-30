@@ -22,24 +22,24 @@ class TestSetup(unittest.TestCase):
         self.assertTrue(self.installer.isProductInstalled(
             '{{cookiecutter.project_slug}}.core'))
 
-    def test_plone_app_imagecropping_installed(self):
-        self.assertTrue(
-            self.installer.isProductInstalled(
-                'plone.app.imagecropping'
-            )
-        )
+    # def test_plone_app_imagecropping_installed(self):
+    #     self.assertTrue(
+    #         self.installer.isProductInstalled(
+    #             'plone.app.imagecropping'
+    #         )
+    #     )
 
-    def test_plone_restapi_installed(self):
-        self.assertTrue(
-            self.installer.isProductInstalled(
-                'plone.restapi'
-            )
-        )
+    # def test_plone_restapi_installed(self):
+    #     self.assertTrue(
+    #         self.installer.isProductInstalled(
+    #             'plone.restapi'
+    #         )
+    #     )
 
-    def test_news_item_renamed_to_meldung(self):
-        portal_types = getToolByName(self.portal, 'portal_types')
-        news_item_fti = getattr(portal_types, 'News Item')
-        self.assertEqual('Meldung', news_item_fti.title)
+    # def test_news_item_renamed_to_meldung(self):
+    #     portal_types = getToolByName(self.portal, 'portal_types')
+    #     news_item_fti = getattr(portal_types, 'News Item')
+    #     self.assertEqual('Meldung', news_item_fti.title)
 
     def test_browserlayer(self):
         """Test that I{{cookiecutter.project_slug.capitalize()}}CoreLayer is registered."""
