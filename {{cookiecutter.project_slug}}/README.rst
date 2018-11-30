@@ -36,6 +36,19 @@ Run Robot Framework based acceptance tests::
   make test-acceptance
 
 
+Theme
+------
+
+In case that the build contains a theme, in order to develop it, move to the
+project root, then::
+
+  yarn
+
+then for start the watcher::
+
+  yarn start
+
+
 Code
 ----
 
