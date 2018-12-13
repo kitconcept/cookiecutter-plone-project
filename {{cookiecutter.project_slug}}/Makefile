@@ -24,6 +24,7 @@ build: ## Create virtualenv and run buildout
 	virtualenv -p python2 --clear .
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
+	@echo "$(GREEN)==> Setup Build$(RESET)"
 	bin/buildout
 
 .PHONY: build-staging
@@ -32,6 +33,7 @@ build-staging: ## Create virtualenv and run staging buildout
 	virtualenv -p python2 --clear .
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
+	@echo "$(GREEN)==> Setup Build$(RESET)"
 	bin/buildout -c staging.cfg
 
 .PHONY: build-live
@@ -40,12 +42,13 @@ build-live: ## Create virtualenv and run live buildout
 	virtualenv -p python2 --clear .
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
+	@echo "$(GREEN)==> Setup Build$(RESET)"
 	bin/buildout -c live.cfg
 
 .PHONY: clean
 clean: ## Remove old virtualenv and creates a new one
-	@echo "Clean"
-	rm -rf bin lib include share .Python
+	@echo "$(RED)==> Cleaning environment and build$(RESET)"
+	rm -rf bin lib include share .Python parts .installed.cfg
 
 .PHONY: code-analysis
 code-analysis: ## Run static code analysis
