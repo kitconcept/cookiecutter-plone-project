@@ -18,7 +18,7 @@ before_install:
   - unzip chromedriver_linux64.zip
   - sudo mv chromedriver /usr/local/bin
 install:
-  - cookiecutter https://github.com/kitconcept/cookiecutter-plone.git --no-input
+  - make generate
 script:
   - (cd projectname && make build)
   - (cd projectname && make test)
