@@ -16,10 +16,10 @@ help: ## This help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: all
-all: setup
+all: build
 
-.PHONY: setup
-setup: ## Create virtualenv and install dependencies
+.PHONY: build
+build: ## Create virtualenv and install dependencies
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
 	virtualenv -p python2 --clear .
 	bin/pip install pip --upgrade
