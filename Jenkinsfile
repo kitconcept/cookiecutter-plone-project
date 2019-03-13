@@ -18,6 +18,7 @@ pipeline {
         sh 'make test'
       }
     }
+  }
 
   post {
     success {
