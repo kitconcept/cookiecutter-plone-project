@@ -2,11 +2,25 @@
 
 pipeline {
 
-  agent any
+  agent {
+    label 'node'
+  }
+
+  options {
+
+    // General Jenkins job properties
+    buildDiscarder(logRotator(numToKeepStr:'20'))
+
+    // Declarative-specific options
+    skipDefaultCheckout()
+
+    // "wrapper" steps that should wrap the entire build execution
+    timeout(time: 240, unit: 'MINUTES')
+  }
 
   stages {
 
-    // Build
+    // --- BUILD ---
     stage('Build') {
       agent {
         label 'node'
@@ -15,9 +29,23 @@ pipeline {
         deleteDir()
         checkout scm
         sh 'make build'
-        sh 'make test'
       }
     }
+
+    // -- UNIT TESTS ---
+    stage('Unit Tests') {
+      stage('Backend') {
+        agent {
+          label 'node'
+        }
+        steps {
+          deleteDir()
+          sh 'make build'
+          sh 'make test'
+        }
+      }
+    }
+
   }
 
   post {
