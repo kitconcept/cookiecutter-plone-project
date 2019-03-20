@@ -36,7 +36,7 @@ test: ## Create a sample package and tests it (runs buildout)
 	@echo "$(GREEN)==> Creating new test package$(RESET)"
 	rm -rf projectname
 	./bin/cookiecutter . --no-input
-	(cd projectname && virtualenv -p python2 --clear .)
+	(cd projectname && virtualenv -p python3 --clear .)
 	(cd projectname && bin/pip install pip --upgrade)
 	(cd projectname && bin/pip install -r requirements.txt)
 	(cd projectname && bin/buildout)
