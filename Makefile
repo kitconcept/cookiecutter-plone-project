@@ -21,7 +21,7 @@ all: build
 .PHONY: build
 build: ## Create virtualenv and install dependencies
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	virtualenv -p python2 --clear .
+	virtualenv -p python3 --clear .
 	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
 
