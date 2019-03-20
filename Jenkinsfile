@@ -34,15 +34,13 @@ pipeline {
 
     // -- UNIT TESTS ---
     stage('Unit Tests') {
-      stage('Backend') {
-        agent {
-          label 'node'
-        }
-        steps {
-          deleteDir()
-          sh 'make build'
-          sh 'make test'
-        }
+      agent {
+        label 'node'
+      }
+      steps {
+        deleteDir()
+        sh 'make build'
+        sh 'make test'
       }
     }
 
