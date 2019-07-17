@@ -76,8 +76,8 @@ def post_install(context):
         portal["front-page"].reindexObject()
 
     # Setup the plone.app.multilingual data
-    sms = SetupMultilingualSite(portal)
-    sms.setupSite(portal)
+    # sms = SetupMultilingualSite(portal)
+    # sms.setupSite(portal)
 
 
 def import_content(context):
@@ -94,7 +94,7 @@ def import_content(context):
         properties=None,
     )
 
-    users = ["miriam.nawo@osudio.com"]
+    users = []
     for user in users:
         api.user.create(
             email="no-reply@example.com",
@@ -106,20 +106,20 @@ def import_content(context):
 
     # enable content non-globally addable types just for initial content
     # creation
-    TEMP_ENABLE_CONTENT_TYPES = ["Fragen", "Blog", "Menschen"]
+    TEMP_ENABLE_CONTENT_TYPES = []
     for content_type in TEMP_ENABLE_CONTENT_TYPES:
         enable_content_type(portal, content_type)
 
     # content
-    content_structure = load_json("content.json", __file__)
+    # content_structure = load_json("content.json", __file__)
 
-    create_item_runner(
-        api.portal.get(),
-        content_structure,
-        default_lang="de",
-        default_wf_state="external",
-        base_image_path=os.path.join(os.path.dirname(__file__), "example"),
-    )
+    # create_item_runner(
+    #     api.portal.get(),
+    #     content_structure,
+    #     default_lang="de",
+    #     default_wf_state="external",
+    #     base_image_path=os.path.join(os.path.dirname(__file__), "example"),
+    # )
 
     # Delete Plone content
     if "Members" in portal.objectIds():
@@ -147,29 +147,29 @@ def testing_content(context):
 
     # enable content non-globally addable types just for initial content
     # creation
-    TEMP_ENABLE_CONTENT_TYPES = ["Fragen", "Blog", "Menschen"]
+    TEMP_ENABLE_CONTENT_TYPES = []
     for content_type in TEMP_ENABLE_CONTENT_TYPES:
         enable_content_type(portal, content_type)
 
     objects = [
-        portal.de,
-        portal.en,
-        api.content.create(
-            container=portal.de, type="Blog", id="aktuelles", title="HU Unterwegs"
-        ),
-        api.content.create(
-            container=portal.de, type="Fragen", id="fragen", title="Fragen"
-        ),
-        api.content.create(
-            container=portal.de, type="Menschen", id="menschen", title="Menschen"
-        ),
-        api.content.create(container=portal.en, type="Blog", id="news", title="News"),
-        api.content.create(
-            container=portal.en, type="Fragen", id="questions", title="Questions"
-        ),
-        api.content.create(
-            container=portal.en, type="Menschen", id="people", title="People"
-        ),
+        # portal.de,
+        # portal.en,
+        # api.content.create(
+        #     container=portal.de, type="Blog", id="aktuelles", title="HU Unterwegs"
+        # ),
+        # api.content.create(
+        #     container=portal.de, type="Fragen", id="fragen", title="Fragen"
+        # ),
+        # api.content.create(
+        #     container=portal.de, type="Menschen", id="menschen", title="Menschen"
+        # ),
+        # api.content.create(container=portal.en, type="Blog", id="news", title="News"),
+        # api.content.create(
+        #     container=portal.en, type="Fragen", id="questions", title="Questions"
+        # ),
+        # api.content.create(
+        #     container=portal.en, type="Menschen", id="people", title="People"
+        # ),
     ]
     for obj in objects:
         api.content.transition(obj=obj, transition="publish_externally")
