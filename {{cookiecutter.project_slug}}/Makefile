@@ -114,7 +114,7 @@ start-backend: ## Start Plone Backend
 .PHONY: test-acceptance-start-backend
 test-acceptance-start-backend: ## Start Test Plone Backend
 	@echo "$(GREEN)==> Start Test Plone Backend$(RESET)"
-	ZSERVER_PORT=55001 CONFIGURE_PACKAGES=plone.app.contenttypes,plone.app.multilingual,plone.restapi,kitconcept.volto,kitconcept.volto.cors,huberlinexzellenz.core APPLY_PROFILES=plone.app.contenttypes:plone-content,plone.restapi:default,plone.app.multilingual:default,kitconcept.volto:default,huberlinexzellenz.core:testing ./api/bin/robot-server plone.app.robotframework.testing.PLONE_ROBOT_TESTING
+	ZSERVER_PORT=55001 CONFIGURE_PACKAGES=plone.app.contenttypes,plone.app.multilingual,plone.restapi,kitconcept.volto,kitconcept.volto.cors,{{cookiecutter.project_slug}}.core APPLY_PROFILES=plone.app.contenttypes:plone-content,plone.restapi:default,plone.app.multilingual:default,kitconcept.volto:default,{{cookiecutter.project_slug}}.core:testing ./api/bin/robot-server plone.app.robotframework.testing.PLONE_ROBOT_TESTING
 
 .PHONY: test-acceptance-start-frontend
 test-acceptance-start-frontend: ## Start Test Volto Frontend
