@@ -15,7 +15,7 @@ long_description = "\n\n".join([
 setup(
     name="{{cookiecutter.project_slug}}.core",
     version="1.0.0a1",
-    description=",
+    description="",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
