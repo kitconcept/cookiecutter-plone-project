@@ -32,9 +32,9 @@ setup(
     author_email="info@kitconcept.com",
     url="https://github.com/kitconcept/{{cookiecutter.project_slug}}",
     license="GPL version 2",
-    packages=find_packages("src", exclude=["ez_setup']),
-    namespace_packages=['{{cookiecutter.project_slug}}'],
-    package_dir={'': 'src'},
+    packages=find_packages("src", exclude=["ez_setup"]),
+    namespace_packages=["{{cookiecutter.project_slug}}"],
+    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
