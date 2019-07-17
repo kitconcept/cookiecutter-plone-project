@@ -43,6 +43,15 @@
     />
 
   <genericsetup:registerProfile
+    name="testing"
+    title="{{cookiecutter.project_slug}} site (testing)"
+    directory="profiles/testing"
+    description="{{cookiecutter.project_slug}} site with example content for testing."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    post_handler=".setuphandlers.testing_content"
+    />
+
+  <genericsetup:registerProfile
       name="uninstall"
       title="{{cookiecutter.project_slug}} site ({{cookiecutter.project_slug}}.core): uninstall"
       directory="profiles/uninstall"
