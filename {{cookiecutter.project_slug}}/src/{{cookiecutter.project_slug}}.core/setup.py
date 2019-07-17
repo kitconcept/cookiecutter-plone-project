@@ -42,7 +42,7 @@ setup(
         "Products.GenericSetup>=1.8.2",
         "setuptools",
         "z3c.jbot",
-        # "kitconcept.volto",
+        "kitconcept.volto",
         # "kitconcept.contentcreator",
         "kitconcept.seo",
         "collective.dexteritytextindexer",
