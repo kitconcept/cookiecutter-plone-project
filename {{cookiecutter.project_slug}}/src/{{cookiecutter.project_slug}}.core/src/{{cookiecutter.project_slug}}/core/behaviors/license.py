@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 from {{cookiecutter.project_slug}}.core import _
 from plone.autoform.interfaces import IFormFieldProvider
@@ -11,9 +10,7 @@ from zope.schema import TextLine
 class ILicense(model.Schema):
 
     image_caption = TextLine(
-        title=_(u'Legende zum Vorschaubild'),
-        description=_(
-            u'Bitte Lizenzinformationen in folgender Form angeben'
-        ),
+        title=_(u"Legende zum Vorschaubild"),
+        description=_(u"Bitte Lizenzinformationen in folgender Form angeben"),
         required=False,
     )

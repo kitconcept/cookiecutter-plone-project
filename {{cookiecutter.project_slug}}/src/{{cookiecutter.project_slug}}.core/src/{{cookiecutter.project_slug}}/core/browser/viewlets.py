@@ -6,21 +6,23 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class MyViewlet(ViewletBase):
     """ A simple viewlet """
-    index = ViewPageTemplateFile('myviewlet.pt')
+
+    index = ViewPageTemplateFile("myviewlet.pt")
 
     def update(self):
         self.news_available = True
 
     def get_news(self):
-        pc = api.portal.get_tool('portal_catalog')
+        pc = api.portal.get_tool("portal_catalog")
 
         query = {}
         # if self.filter:
         #     query.update({'Subject': self.filter})
 
         return pc.searchResults(
-                    portal_type=['News Item', ],
-                    review_state='published',
-                    sort_on='effective',
-                    sort_order='reverse',
-                    **query)[:6]
+            portal_type=["News Item"],
+            review_state="published",
+            sort_on="effective",
+            sort_order="reverse",
+            **query
+        )[:6]

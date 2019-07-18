@@ -19,21 +19,21 @@ class TestSetup(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests."""
-        self.portal = self.layer['portal']
+        self.portal = self.layer["portal"]
         if get_installer:
-            self.installer = get_installer(self.portal, self.layer['request'])
+            self.installer = get_installer(self.portal, self.layer["request"])
         else:
-            self.installer = api.portal.get_tool('portal_quickinstaller')
+            self.installer = api.portal.get_tool("portal_quickinstaller")
 
     def test_product_installed(self):
         """Test if {{cookiecutter.project_slug}}.core is installed."""
         self.assertTrue(self.installer.isProductInstalled(
-            '{{cookiecutter.project_slug}}.core'))
+            "{{cookiecutter.project_slug}}.core"))
 
     # def test_plone_restapi_installed(self):
     #     self.assertTrue(
     #         self.installer.isProductInstalled(
-    #             'plone.restapi'
+    #             "plone.restapi"
     #         )
     #     )
 
@@ -50,18 +50,18 @@ class TestUninstall(unittest.TestCase):
     layer = {{cookiecutter.project_slug.upper()}}_CORE_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
+        self.portal = self.layer["portal"]
         if get_installer:
-            self.installer = get_installer(self.portal, self.layer['request'])
+            self.installer = get_installer(self.portal, self.layer["request"])
         else:
-            self.installer = api.portal.get_tool('portal_quickinstaller')
+            self.installer = api.portal.get_tool("portal_quickinstaller")
 
-        self.installer.uninstallProducts(['{{cookiecutter.project_slug}}.core']) # noqa
+        self.installer.uninstallProducts(["{{cookiecutter.project_slug}}.core"]) # noqa
 
     def test_product_uninstalled(self):
         """Test if {{cookiecutter.project_slug}}.core is cleanly uninstalled.""" # noqa
         self.assertFalse(self.installer.isProductInstalled(
-            '{{cookiecutter.project_slug}}.core'))
+            "{{cookiecutter.project_slug}}.core"))
 
     def test_browserlayer_removed(self):
         """Test that I{{cookiecutter.project_slug.capitalize()}}CoreLayer is removed.""" # noqa

@@ -27,17 +27,17 @@ class {{cookiecutter.project_slug.capitalize()}}CoreLayer(PloneSandboxLayer):
         self.loadZCML(package={{cookiecutter.project_slug}}.core)
 
     def setUpPloneSite(self, portal):
-        setRoles(portal, TEST_USER_ID, ['Manager'])
+        setRoles(portal, TEST_USER_ID, ["Manager"])
         login(portal, TEST_USER_NAME)
         api.content.create(
-            type='Document',
-            id='front-page',
-            title='Welcome',
+            type="Document",
+            id="front-page",
+            title="Welcome",
             container=portal
         )
         logout()
-        applyProfile(portal, '{{cookiecutter.project_slug}}.core:default')
-        api.portal.set_registry_record('plone.default_language', u'en')
+        applyProfile(portal, "{{cookiecutter.project_slug}}.core:default")
+        api.portal.set_registry_record("plone.default_language", u"en")
 
 
 {{cookiecutter.project_slug.upper()}}_CORE_FIXTURE = {{cookiecutter.project_slug.capitalize()}}CoreLayer()
@@ -45,13 +45,13 @@ class {{cookiecutter.project_slug.capitalize()}}CoreLayer(PloneSandboxLayer):
 
 {{cookiecutter.project_slug.upper()}}_CORE_INTEGRATION_TESTING = IntegrationTesting(
     bases=({{cookiecutter.project_slug.upper()}}_CORE_FIXTURE,),
-    name='{{cookiecutter.project_slug.capitalize()}}CoreLayer:IntegrationTesting'
+    name="{{cookiecutter.project_slug.capitalize()}}CoreLayer:IntegrationTesting"
 )
 
 
 {{cookiecutter.project_slug.upper()}}_CORE_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=({{cookiecutter.project_slug.upper()}}_CORE_FIXTURE, z2.ZSERVER_FIXTURE),
-    name='{{cookiecutter.project_slug.capitalize()}}CoreLayer:FunctionalTesting'
+    name="{{cookiecutter.project_slug.capitalize()}}CoreLayer:FunctionalTesting"
 )
 
 
@@ -61,5 +61,5 @@ class {{cookiecutter.project_slug.capitalize()}}CoreLayer(PloneSandboxLayer):
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         z2.ZSERVER_FIXTURE
     ),
-    name='{{cookiecutter.project_slug.capitalize()}}CoreLayer:AcceptanceTesting'
+    name="{{cookiecutter.project_slug.capitalize()}}CoreLayer:AcceptanceTesting"
 )
