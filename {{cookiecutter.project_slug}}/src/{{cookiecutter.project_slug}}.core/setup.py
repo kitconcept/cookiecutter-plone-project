@@ -43,7 +43,7 @@ setup(
         "setuptools",
         "z3c.jbot",
         "kitconcept.volto",
-        # "kitconcept.contentcreator",
+        "kitconcept.contentcreator",
         "kitconcept.seo",
         "collective.dexteritytextindexer",
         "collective.monkeypatcher",
