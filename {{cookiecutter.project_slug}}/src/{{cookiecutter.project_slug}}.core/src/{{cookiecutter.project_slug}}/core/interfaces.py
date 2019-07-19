@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from {{cookiecutter.project_slug}}.core import _
 from plone.supermodel import model
-from zope import schema
 
+# from {{cookiecutter.project_slug}}.core import _
+# from zope import schema
 # from plone.app.textfield import RichText
 # from z3c.relationfield.schema import RelationChoice
 # from z3c.relationfield.schema import RelationList
