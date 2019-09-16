@@ -1,0 +1,83 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="{{cookiecutter.project_slug}}.{{cookiecutter.project_name}}">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <includeDependencies package="." />
+
+  <include package=".browser" />
+  <include package=".behaviors" />
+  <include package=".portlets" />
+
+  <include file="upgrades.zcml" />
+
+  <!-- Enable overrides (if required) -->
+  <!-- <includeOverrides file="overrides.zcml" /> -->
+
+  <!-- <permission
+    id="{{cookiecutter.project_slug}}.newpermission"
+    title="{{cookiecutter.project_slug}}: Manage Something"
+    /> -->
+
+  <genericsetup:registerProfile
+      name="default"
+      title="{{cookiecutter.project_slug}} site ({{cookiecutter.project_slug}}.{{cookiecutter.project_name}})"
+      directory="profiles/default"
+      description="Installs the {{cookiecutter.project_slug}}.{{cookiecutter.project_name}} add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.post_install"
+      />
+
+  <genericsetup:registerProfile
+    name="content"
+    title="{{cookiecutter.project_slug}} site (example content)"
+    directory="profiles/content"
+    description="{{cookiecutter.project_slug}} site with example content for testing."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    post_handler=".setuphandlers.import_content"
+    />
+
+  <genericsetup:registerProfile
+    name="testing"
+    title="{{cookiecutter.project_slug}} site (testing)"
+    directory="profiles/testing"
+    description="{{cookiecutter.project_slug}} site with example content for testing."
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    post_handler=".setuphandlers.testing_content"
+    />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="{{cookiecutter.project_slug}} site ({{cookiecutter.project_slug}}.{{cookiecutter.project_name}}): uninstall"
+      directory="profiles/uninstall"
+      description="Uninstalls the {{cookiecutter.project_slug}}.{{cookiecutter.project_name}} add-on."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      post_handler=".setuphandlers.uninstall"
+      />
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="{{cookiecutter.project_slug}}.{{cookiecutter.project_name}}-hiddenprofiles" />
+
+  <!-- Indexers/Metadata -->
+  <!-- <adapter name="lead_image_file" factory=".indexers.leadImageFile" /> -->
+
+  <!-- Vocabularies -->
+  <!-- <utility
+    component=".vocabularies.simple_vocabulary"
+    name="{{cookiecutter.project_slug}}.{{cookiecutter.project_name}}.vocabulary.simple_vocabulary"
+    /> -->
+
+  <!-- Subscribers -->
+  <!-- <subscriber
+    for="plone.app.contenttypes.interfaces.ICollection
+         zope.lifecycleevent.IObjectAddedEvent"
+    handler=".subscribers.subscriber_action"
+    /> -->
+
+</configure>
