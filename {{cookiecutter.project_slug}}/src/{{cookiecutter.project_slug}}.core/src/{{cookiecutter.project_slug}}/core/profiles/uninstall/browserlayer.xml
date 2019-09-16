@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<layers>
-  <layer
-      name="{{cookiecutter.project_slug}}.core"
-      remove="true"
-      />
-</layers>

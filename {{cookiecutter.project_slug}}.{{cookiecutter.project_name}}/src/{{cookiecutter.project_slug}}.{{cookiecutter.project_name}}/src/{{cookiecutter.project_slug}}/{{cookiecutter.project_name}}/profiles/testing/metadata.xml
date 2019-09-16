@@ -1,0 +1,6 @@
+<metadata>
+    <version>1000</version>
+    <dependencies>
+        <dependency>profile-{{cookiecutter.project_slug}}.{{cookiecutter.project_name}}:default</dependency>
+    </dependencies>
+</metadata>
