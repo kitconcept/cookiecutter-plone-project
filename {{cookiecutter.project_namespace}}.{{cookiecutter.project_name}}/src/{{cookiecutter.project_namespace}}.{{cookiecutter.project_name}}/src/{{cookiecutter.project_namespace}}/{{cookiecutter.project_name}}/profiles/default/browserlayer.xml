@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer name="{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}" interface="{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}.interfaces.I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer" />
+</layers>
