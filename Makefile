@@ -28,7 +28,7 @@ build: ## Create virtualenv and install dependencies
 .PHONY: generate
 generate: ## Create a sample package
 	@echo "$(GREEN)==> Creating new test package$(RESET)"
-	rm -rf projecttitle
+	rm -rf projecttitle.projectname
 	./bin/cookiecutter . --no-input
 
 .PHONY: test
