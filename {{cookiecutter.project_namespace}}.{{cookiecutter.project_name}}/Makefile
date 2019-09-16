@@ -37,7 +37,7 @@ start-frontend:  ## Start React Frontend
 
 api/bin/pip:
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	(cd api && virtualenv -p python3 --clear .)
+	(cd api && python3 -m venv .)
 	(cd api && bin/pip install pip --upgrade)
 
 .PHONY: build-backend
