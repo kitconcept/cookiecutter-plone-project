@@ -1,5 +1,5 @@
 {
-  "project_name": "ProjectName",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+  "project_title": "ProjectName",
+  "project_slug": "{{ cookiecutter.project_title.lower().replace(' ', '-') }}",
   "_extensions": ["jinja2_time.TimeExtension"]
 }
