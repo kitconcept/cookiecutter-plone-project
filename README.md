@@ -1,3 +1,5 @@
+[![Cookiecutter Plone Project CI](https://github.com/kitconcept/cookiecutter-plone-project/actions/workflows/ci.yml/badge.svg)](https://github.com/kitconcept/cookiecutter-plone-project/actions/workflows/ci.yml)
+
 Cookiecutter template for Plone 6 (Volto)
 =========================================
 
