@@ -37,8 +37,7 @@ jobs:
       - name: test
         run:
           ./cookiecutter . --no-input
-          (cd projecttitle.projectname && virtualenv -p python3 --clear .)
-          (cd projecttitle.projectname && bin/pip install pip --upgrade)
+          (cd projecttitle.projectname && python3 -m venv .)
           (cd projecttitle.projectname && bin/pip install -r requirements.txt)
           (cd projecttitle.projectname && bin/buildout)
           (cd projecttitle.projectname && bin/test)
