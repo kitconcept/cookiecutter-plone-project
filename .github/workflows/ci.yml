@@ -34,12 +34,8 @@ jobs:
         run: pip install -r requirements.txt
 
       # generate
-      - name: test
-        run:
-          ./cookiecutter . --no-input
-          (cd projecttitle.projectname && python3 -m venv .)
-          (cd projecttitle.projectname && bin/pip install -r requirements.txt)
-          (cd projecttitle.projectname && bin/buildout)
-          (cd projecttitle.projectname && bin/test)
-        env:
-          CI: true
+      - run: ./cookiecutter . --no-input
+      - run: (cd projecttitle.projectname && python3 -m venv .)
+      - run: (cd projecttitle.projectname && bin/pip install -r requirements.txt)
+      - run: (cd projecttitle.projectname && bin/buildout)
+      - run: (cd projecttitle.projectname && bin/test)
