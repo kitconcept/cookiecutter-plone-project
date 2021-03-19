@@ -10,9 +10,7 @@
 
   <includeDependencies package="." />
 
-  <include package=".browser" />
   <include package=".behaviors" />
-  <include package=".portlets" />
 
   <include file="upgrades.zcml" />
 
