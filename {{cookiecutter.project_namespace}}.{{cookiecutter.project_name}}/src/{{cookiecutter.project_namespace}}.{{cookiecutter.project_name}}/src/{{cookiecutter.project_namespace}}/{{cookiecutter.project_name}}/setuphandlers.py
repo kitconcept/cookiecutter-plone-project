@@ -115,13 +115,13 @@ def import_content(context):
     # content
     # content_structure = load_json("content.json", __file__)
 
-    # create_item_runner(
-    #     api.portal.get(),
-    #     content_structure,
-    #     default_lang="de",
-    #     default_wf_state="external",
-    #     base_image_path=os.path.join(os.path.dirname(__file__), "example"),
-    # )
+    create_item_runner(
+        api.portal.get(),
+        content_structure,
+        default_lang="de",
+        default_wf_state="external",
+        base_image_path=os.path.join(os.path.dirname(__file__), "example"),
+    )
 
     # Delete Plone content
     if "Members" in portal.objectIds():
