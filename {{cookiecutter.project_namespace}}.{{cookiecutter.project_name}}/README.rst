@@ -67,5 +67,5 @@ Server
 ------
 
 Live: www.example.com
-Staging: {{cookiecutter.project_namespace}}.kitconcept.io (Deploy automatically from master branch)
+Staging: {{cookiecutter.project_namespace}}.kitconcept.io (Deploy automatically from main branch)
 

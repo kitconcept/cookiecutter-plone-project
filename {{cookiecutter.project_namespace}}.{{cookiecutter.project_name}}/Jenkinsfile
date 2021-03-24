@@ -166,10 +166,10 @@ pipeline {
             label 'kitconcept.io'
           }
           when {
-            branch 'master'
+            branch 'main'
           }
           steps {
-            sh '(cd /srv/{{cookiecutter.project_namespace}} && git fetch --all && git reset --hard origin/master)'
+            sh '(cd /srv/{{cookiecutter.project_namespace}} && git fetch --all && git reset --hard origin/main)'
             sh '(cd /srv/{{cookiecutter.project_namespace}}/api && pm2 stop {{cookiecutter.project_namespace}}-api-dev)'
             sh '(cd /srv/{{cookiecutter.project_namespace}}/api && bin/buildout -c dev.cfg)'
             sh '(cd /srv/{{cookiecutter.project_namespace}}/api && pm2 start {{cookiecutter.project_namespace}}-api-dev)'
@@ -180,7 +180,7 @@ pipeline {
             label 'kitconcept.io'
           }
           when {
-            branch 'master'
+            branch 'main'
           }
           steps {
             deleteDir()
@@ -201,7 +201,7 @@ pipeline {
             label 'node'
           }
           when {
-            branch 'master'
+            branch 'main'
           }
           steps {
             deleteDir()
@@ -231,24 +231,28 @@ pipeline {
   post {
     success {
       slackSend (
+        channel: "ci",
         color: 'good',
         message: "SUCCESS: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
       )
     }
     failure {
       slackSend (
+        channel: "ci",
         color: 'danger',
         message: "FAILURE: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
       )
     }
     unstable {
       slackSend (
+        channel: "ci",
         color: 'warning',
         message: "UNSTABLE: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
       )
     }
     aborted {
       slackSend (
+        channel: "ci",
         color: 'danger',
         message: "ABORTED: #${env.BUILD_NUMBER} ${env.JOB_NAME} (${env.BUILD_URL})"
       )

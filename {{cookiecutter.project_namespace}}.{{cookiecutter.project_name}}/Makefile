@@ -70,7 +70,7 @@ build-backend-live: api/bin/pip ## Create virtualenv and run live buildout
 .PHONY: build-frontend-live
 build-frontend-live: ## Build Frontend Live
 	@echo "$(GREEN)==> Build Frontend Live$(RESET)"
-	git fetch --all && git reset --hard origin/master
+	git fetch --all && git reset --hard origin/main
 	yarn install
 	PORT=MODIFYME RAZZLE_API_PATH=https://website/api yarn build
 	pm2 restart huberlin-exzellenz-volto

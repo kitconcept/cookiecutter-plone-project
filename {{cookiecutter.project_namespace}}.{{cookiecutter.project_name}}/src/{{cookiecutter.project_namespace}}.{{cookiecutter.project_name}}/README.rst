@@ -16,7 +16,7 @@ Development
 
 Requirements:
 
-- Python 2.7
+- Python 3.7
 - Virtualenv
 
 Setup::
@@ -54,5 +54,5 @@ Server
 ------
 
 Live: ...
-Staging: {{cookiecutter.project_namespace}}.kitconcept.io (Deploy automatically from master branch)
+Staging: {{cookiecutter.project_namespace}}.kitconcept.io (Deploy automatically from main branch)
 
