@@ -30,7 +30,7 @@ class HiddenProfiles(object):
 
 def change_content_type_title(portal, old_name, new_name):
     """
-        change_content_type_title(portal, 'News Item', 'Meldung')
+    change_content_type_title(portal, 'News Item', 'Meldung')
     """
     portal_types = getToolByName(portal, "portal_types")
     news_item_fti = getattr(portal_types, old_name)
@@ -50,8 +50,7 @@ def enable_content_type(portal, fti_id):
 
 
 def copy_content_type(portal, name, newid, newname):
-    """Create a new content type by copying an existing one
-    """
+    """Create a new content type by copying an existing one"""
     portal_types = getToolByName(portal, "portal_types")
     tmp_obj = portal_types.manage_copyObjects([name])
     tmp_obj = portal_types.manage_pasteObjects(tmp_obj)
@@ -113,7 +112,7 @@ def import_content(context):
         enable_content_type(portal, content_type)
 
     # content
-    # content_structure = load_json("content.json", __file__)
+    content_structure = load_json("content.json", __file__)
 
     create_item_runner(
         api.portal.get(),
@@ -143,8 +142,7 @@ def import_content(context):
 
 
 def testing_content(context):
-    """Content for the testing gs profile
-    """
+    """Content for the testing gs profile"""
     portal = api.portal.get()
 
     # enable content non-globally addable types just for initial content
@@ -183,8 +181,7 @@ def uninstall(context):
 
 
 def add_catalog_indexes(context, wanted=None):
-    """Method to add our wanted indexes to the portal_catalog.
-    """
+    """Method to add our wanted indexes to the portal_catalog."""
     catalog = api.portal.get_tool("portal_catalog")
     indexes = catalog.indexes()
     indexables = []
@@ -206,7 +203,7 @@ def setupNavigationPortlet(
     topLevel=0,
 ):
     """
-        setupNavigationPortlet(portal['vereinigungen']['fachliche-vereinigungen']['sektion-materie-und-kosmos']['gravitation-und-relativitaetstheorie']) # noqa
+    setupNavigationPortlet(portal['vereinigungen']['fachliche-vereinigungen']['sektion-materie-und-kosmos']['gravitation-und-relativitaetstheorie']) # noqa
     """
     from plone.app.portlets.portlets.navigation import (
         Assignment as NavAssignment,
@@ -232,7 +229,7 @@ def setupNavigationPortlet(
 
 def setupPortletAt(portal, portlet_type, manager, path, name="", **kw):
     """
-        setupPortletAt(portal, 'portlets.Events', 'plone.rightcolumn', '/vereinigungen/fachliche-vereinigungen/sektion-kondensierte-materie/halbleiterphysik') # noqa
+    setupPortletAt(portal, 'portlets.Events', 'plone.rightcolumn', '/vereinigungen/fachliche-vereinigungen/sektion-kondensierte-materie/halbleiterphysik') # noqa
     """
     portlet_factory = getUtility(IFactory, name=portlet_type)
     assignment = portlet_factory(**kw)
