@@ -72,7 +72,7 @@ build-frontend-live: ## Build Frontend Live
 	@echo "$(GREEN)==> Build Frontend Live$(RESET)"
 	git fetch --all && git reset --hard origin/main
 	yarn install
-	PORT=MODIFYME RAZZLE_API_PATH=https://website/api yarn build
+	PORT=MODIFYME RAZZLE_API_PATH=https://MODIFYME/api yarn build
 	pm2 restart huberlin-exzellenz-volto
 
 .PHONY: clean
@@ -123,5 +123,20 @@ test-acceptance-start-frontend: ## Start Test Volto Frontend
 
 .PHONY: test-acceptance-start-tests
 test-acceptance-start-tests: ## Start Test
+	@echo "$(GREEN)==> Start Test$(RESET)"
+	NODE_ENV=development yarn cypress open
+
+.PHONY: start-test-backend
+start-test-backend: ## Start Plone Test Backend
+	@echo "$(GREEN)==> Start Plone Test Backend$(RESET)"
+	ZSERVER_PORT=55001 CONFIGURE_PACKAGES=plone.app.contenttypes,plone.app.multilingual,plone.restapi,kitconcept.volto,kitconcept.volto.cors,{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}} APPLY_PROFILES=plone.app.contenttypes:plone-content,plone.restapi:default,plone.app.multilingual:default,kitconcept.volto:default,fftitz.core:testing ./api/bin/robot-server plone.app.robotframework.testing.PLONE_ROBOT_TESTING
+
+.PHONY: start-test-frontend
+start-test-frontend: ## Start Volto Test Frontend
+	@echo "$(GREEN)==> Start Volto Test Frontend$(RESET)"
+	RAZZLE_API_PATH=http://localhost:55001/plone yarn build && NODE_ENV=production node build/server.js
+
+.PHONY: start-test
+start-test: ## Start Tests
 	@echo "$(GREEN)==> Start Test$(RESET)"
 	NODE_ENV=development yarn cypress open

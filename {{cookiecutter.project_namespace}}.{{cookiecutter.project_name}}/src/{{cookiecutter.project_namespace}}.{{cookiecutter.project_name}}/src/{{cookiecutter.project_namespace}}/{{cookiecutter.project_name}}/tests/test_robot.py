@@ -20,10 +20,9 @@ def test_suite():
     for robot_test in robot_tests:
         robottestsuite = robotsuite.RobotTestSuite(robot_test)
         robottestsuite.level = ROBOT_TEST_LEVEL
-        suite.addTests([
-            layered(
-                robottestsuite,
-                layer={{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_ACCEPTANCE_TESTING
-            ),
-        ])
+        suite.addTests(
+            [
+                layered(robottestsuite,layer={{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_ACCEPTANCE_TESTING),
+            ]
+        )
     return suite

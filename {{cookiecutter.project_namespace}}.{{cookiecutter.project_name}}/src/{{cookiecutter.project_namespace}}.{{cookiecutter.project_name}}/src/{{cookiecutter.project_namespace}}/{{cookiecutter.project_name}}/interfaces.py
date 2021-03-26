@@ -19,5 +19,4 @@ class I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_nam
 
 
 class IHomepage(model.Schema):
-    """ Homepage content type interface
-    """
+    """Homepage content type interface"""

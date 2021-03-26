@@ -41,6 +41,4 @@ class KontaktIntegrationTest(unittest.TestCase):
 
     def test_adding(self):
         self.portal.invokeFactory("Homepage", "Homepage")
-        self.assertTrue(
-            IHomepage.providedBy(self.portal["Homepage"])
-        )
+        self.assertTrue(IHomepage.providedBy(self.portal["Homepage"]))

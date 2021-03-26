@@ -29,12 +29,7 @@ class {{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name
     def setUpPloneSite(self, portal):
         setRoles(portal, TEST_USER_ID, ["Manager"])
         login(portal, TEST_USER_NAME)
-        api.content.create(
-            type="Document",
-            id="front-page",
-            title="Welcome",
-            container=portal
-        )
+        api.content.create(type="Document",id="front-page",title="Welcome",container=portal)
         logout()
         applyProfile(portal, "{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}:default")
         api.portal.set_registry_record("plone.default_language", u"en")
@@ -44,14 +39,13 @@ class {{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name
 
 
 {{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_INTEGRATION_TESTING = IntegrationTesting(
-    bases=({{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_FIXTURE,),
-    name="{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer:IntegrationTesting"
+    bases=({{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_FIXTURE,), name="{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer:IntegrationTesting"
 )
 
 
 {{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=({{cookiecutter.project_namespace.upper()}}_{{cookiecutter.project_name}}_FIXTURE, z2.ZSERVER_FIXTURE),
-    name="{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer:FunctionalTesting"
+    name="{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer:FunctionalTesting",
 )
 
 

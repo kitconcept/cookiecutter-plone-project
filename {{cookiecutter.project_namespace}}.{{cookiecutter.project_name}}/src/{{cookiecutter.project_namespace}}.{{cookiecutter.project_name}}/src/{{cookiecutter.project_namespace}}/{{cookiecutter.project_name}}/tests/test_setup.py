@@ -27,8 +27,7 @@ class TestSetup(unittest.TestCase):
 
     def test_product_installed(self):
         """Test if {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}} is installed."""
-        self.assertTrue(self.installer.isProductInstalled(
-            "{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}"))
+        self.assertTrue(self.installer.isProductInstalled("{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}"))
 
     # def test_plone_restapi_installed(self):
     #     self.assertTrue(
@@ -38,11 +37,10 @@ class TestSetup(unittest.TestCase):
     #     )
 
     def test_browserlayer(self):
-        """Test that I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer is registered.""" # noqa
-        from {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}.interfaces import (
-            I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer)
+        """Test that I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer is registered."""  # noqa
+        from {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}.interfaces import (I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer)
         from plone.browserlayer import utils
-        self.assertIn(I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer, utils.registered_layers()) # noqa
+        self.assertIn(I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer, utils.registered_layers())  # noqa
 
 
 class TestUninstall(unittest.TestCase):
@@ -56,15 +54,15 @@ class TestUninstall(unittest.TestCase):
         else:
             self.installer = api.portal.get_tool("portal_quickinstaller")
 
-        self.installer.uninstallProducts(["{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}"]) # noqa
+        self.installer.uninstallProducts(["{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}"])  # noqa
 
     def test_product_uninstalled(self):
-        """Test if {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}} is cleanly uninstalled.""" # noqa
+        """Test if {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}} is cleanly uninstalled."""  # noqa
         self.assertFalse(self.installer.isProductInstalled(
             "{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}"))
 
     def test_browserlayer_removed(self):
-        """Test that I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer is removed.""" # noqa
-        from {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}.interfaces import I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer # noqa
+        """Test that I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer is removed."""  # noqa
+        from {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}.interfaces import I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer  # noqa
         from plone.browserlayer import utils
         self.assertNotIn(I{{cookiecutter.project_namespace.capitalize()}}{{cookiecutter.project_name}}Layer, utils.registered_layers()) # noqa
