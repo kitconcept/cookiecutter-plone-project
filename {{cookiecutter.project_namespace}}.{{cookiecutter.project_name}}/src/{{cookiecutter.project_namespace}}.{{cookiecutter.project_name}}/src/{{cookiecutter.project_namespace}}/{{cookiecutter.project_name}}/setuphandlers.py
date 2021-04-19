@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from kitconcept.contentcreator.creator import create_item_runner
 from kitconcept.contentcreator.creator import load_json
+from kitconcept.contentcreator.creator import content_creator_from_folder
 from plone import api
 from plone.app.portlets.utils import assignment_mapping_from_key
 from plone.portlets.constants import CONTEXT_CATEGORY
@@ -15,6 +16,7 @@ from zope.component.interfaces import IFactory
 from zope.container.interfaces import INameChooser
 from zope.interface import implementer
 from plone.app.multilingual.browser.setup import SetupMultilingualSite
+from kitconcept.volto.setuphandlers import enable_pam
 
 import os
 
@@ -23,9 +25,7 @@ import os
 class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller"""
-        return [
-            "{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}:uninstall"
-        ]
+        return ["{{cookiecutter.project_name}}:uninstall"]
 
 
 def change_content_type_title(portal, old_name, new_name):
@@ -65,20 +65,14 @@ def post_install(context):
 
     portal = api.portal.get()
 
-    # indexes (dropdown navigation / leadimage)
-    # wanted_indexes = (
-    #     ('exclude_from_nav', 'BooleanIndex'),
-    # )
-    # add_catalog_indexes(context, wanted=wanted_indexes)
+    enable_pam(portal)
+
+    # create_default_homepage(portal)
 
     # Remove front-page from nav
     if "front-page" in portal:
         portal["front-page"].exclude_from_nav = True
         portal["front-page"].reindexObject()
-
-    # Setup the plone.app.multilingual data
-    # sms = SetupMultilingualSite(portal)
-    # sms.setupSite(portal)
 
 
 def import_content(context):
@@ -105,23 +99,6 @@ def import_content(context):
             properties=None,
         )
 
-    # enable content non-globally addable types just for initial content
-    # creation
-    TEMP_ENABLE_CONTENT_TYPES = []
-    for content_type in TEMP_ENABLE_CONTENT_TYPES:
-        enable_content_type(portal, content_type)
-
-    # content
-    content_structure = load_json("content.json", __file__)
-
-    create_item_runner(
-        api.portal.get(),
-        content_structure,
-        default_lang="de",
-        default_wf_state="external",
-        base_image_path=os.path.join(os.path.dirname(__file__), "example"),
-    )
-
     # Delete Plone content
     if "Members" in portal.objectIds():
         api.content.delete(obj=portal["Members"])
@@ -129,11 +106,19 @@ def import_content(context):
         api.content.delete(obj=portal["news"])
     if "events" in portal.objectIds():
         api.content.delete(obj=portal["events"])
-    # if 'front-page' in portal.objectIds():
-    #     api.content.delete(obj=portal['front-page'])
 
-    # Set permissions for a folder
-    # portal['interner-bereich'].manage_setLocalRoles('Authenticated Users', ['Reader', ]) # noqa
+    # enable content non-globally addable types just for initial content
+    # creation
+    TEMP_ENABLE_CONTENT_TYPES = ["Folder"]
+    for content_type in TEMP_ENABLE_CONTENT_TYPES:
+        enable_content_type(portal, content_type)
+
+    content_creator_from_folder(
+        folder_name=os.path.join(os.path.dirname(__file__), "content_creator"),
+        base_image_path=os.path.join(
+            os.path.dirname(__file__), "content_creator/images"
+        ),
+    )
 
     # disable again content non-globally addable types just for initial content
     # creation

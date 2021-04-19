@@ -2,6 +2,7 @@
 <metadata>
   <version>1000</version>
   <dependencies>
+    <dependency>profile-plone.app.multilingual:default</dependency>
     <dependency>profile-kitconcept.volto:default</dependency>
     <!-- <dependency>profile-{{cookiecutter.project_namespace}}.theme:default</dependency> -->
   </dependencies>
