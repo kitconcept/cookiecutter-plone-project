@@ -25,7 +25,9 @@ import os
 class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller"""
-        return ["{{cookiecutter.project_name}}:uninstall"]
+        return [
+            "{{cookiecutter.project_namespace}}.{{cookiecutter.project_name}}:uninstall"
+        ]
 
 
 def change_content_type_title(portal, old_name, new_name):
