@@ -38,7 +38,8 @@ pipeline {
             deleteDir()
             checkout scm
             sh "make build-frontend"
-            sh 'tar cfz frontend.tgz locales node_modules cypress public src theme babel.config.js .eslintrc jsconfig.json cypress.json Makefile package.json razzle.config.js yarn.lock'
+            sh '(cd frontend && tar cfz frontend.tgz locales node_modules cypress public src theme babel.config.js .eslintrc jsconfig.json cypress.json Makefile package.json razzle.config.js yarn.lock)'
+            sh 'mv frontend/frontend.tgz ./)'
             stash includes: 'frontend.tgz', name: 'frontend.tgz'
           }
         }
@@ -75,10 +76,10 @@ pipeline {
             deleteDir()
             checkout scm
             unstash 'frontend.tgz'
-            sh 'tar xfz frontend.tgz'
-            sh 'yarn run prettier'
-            sh 'yarn run ci:lint'
-            sh 'cat eslint.xml'
+            sh '(cd frontend && tar xfz frontend.tgz)'
+            sh '(cd frontend && yarn run prettier)'
+            sh '(cd frontend && yarn run ci:lint)'
+            sh '(cd frontend && cat eslint.xml)'
           }
           post {
             always {
@@ -118,14 +119,14 @@ pipeline {
           steps {
             deleteDir()
             unstash 'frontend.tgz'
-            sh 'tar xfz frontend.tgz'
+            sh '(cd frontend && tar xfz frontend.tgz)'
             sh "CI=true make test-frontend"
           }
           post {
             always {
               step([
                 $class: 'JUnitResultArchiver',
-                testResults: 'junit.xml'
+                testResults: 'frontend/junit.xml'
               ])
             }
           }
@@ -143,23 +144,23 @@ pipeline {
         unstash 'backend.tgz'
         sh 'tar xfz backend.tgz'
         unstash 'frontend.tgz'
-        sh 'tar xfz frontend.tgz'
-        sh 'yarn cy:install'
+        sh '(cd frontend && tar xfz frontend.tgz)'
+        sh '(cd frontend && yarn cy:install)'
         wrap([$class: 'Xvfb']) {
-          sh 'yarn ci:cypress:run'
+          sh '(cd frontend && yarn ci:cypress:run)'
         }
       }
       post {
         always {
-          archiveArtifacts artifacts: 'cypress/videos/**/*.mp4', fingerprint: true, allowEmptyArchive: true
-          archiveArtifacts artifacts: 'cypress/screenshots/**/*.png', fingerprint: true, allowEmptyArchive: true
-          junit 'results/cypress-report-*.xml'
+          archiveArtifacts artifacts: 'frontend/cypress/videos/**/*.mp4', fingerprint: true, allowEmptyArchive: true
+          archiveArtifacts artifacts: 'frontend/cypress/screenshots/**/*.png', fingerprint: true, allowEmptyArchive: true
+          junit 'frontend/results/cypress-report-*.xml'
         }
       }
     }
 
-    // --- DEPLOYMENT TO {{cookiecutter.project_namespace}} ---
-    stage('Deployment to {{cookiecutter.project_namespace}}') {
+    // --- DEPLOYMENT TO {{cookiecutter.repository}} ---
+    stage('Deployment to {{cookiecutter.repository}}') {
       parallel {
         stage('Backend') {
           agent {
@@ -169,10 +170,10 @@ pipeline {
             branch 'main'
           }
           steps {
-            sh '(cd /srv/{{cookiecutter.project_namespace}} && git fetch --all && git reset --hard origin/main)'
-            sh '(cd /srv/{{cookiecutter.project_namespace}}/api && pm2 stop {{cookiecutter.project_namespace}}-api-dev)'
-            sh '(cd /srv/{{cookiecutter.project_namespace}}/api && bin/buildout -c dev.cfg)'
-            sh '(cd /srv/{{cookiecutter.project_namespace}}/api && pm2 start {{cookiecutter.project_namespace}}-api-dev)'
+            sh '(cd /srv/{{cookiecutter.repository}} && git fetch --all && git reset --hard origin/main)'
+            sh '(cd /srv/{{cookiecutter.repository}}/api && pm2 stop {{cookiecutter.repository}}-api-dev)'
+            sh '(cd /srv/{{cookiecutter.repository}}/api && bin/buildout -c dev.cfg)'
+            sh '(cd /srv/{{cookiecutter.repository}}/api && pm2 start {{cookiecutter.repository}}-api-dev)'
           }
         }
         stage('Frontend') {
@@ -185,9 +186,9 @@ pipeline {
           steps {
             deleteDir()
             checkout scm
-            sh '(cd /srv/{{cookiecutter.project_namespace}} && yarn install)'
-            sh '(cd /srv/{{cookiecutter.project_namespace}} && PORT=MODIFYME RAZZLE_API_PATH=https://{{cookiecutter.project_namespace}}/api yarn build)'
-            sh '(cd /srv/{{cookiecutter.project_namespace}} && pm2 restart {{cookiecutter.project_namespace}}-volto-dev)'
+            sh '(cd /srv/{{cookiecutter.repository}}/frontend && yarn install)'
+            sh '(cd /srv/{{cookiecutter.repository}}/frontend && PORT=MODIFYME RAZZLE_API_PATH=https://{{cookiecutter.repository}}/api yarn build)'
+            sh '(cd /srv/{{cookiecutter.repository}}/frontend && pm2 restart {{cookiecutter.repository}}-volto-dev)'
           }
         }
       }
@@ -206,22 +207,10 @@ pipeline {
           steps {
             deleteDir()
             checkout scm
-            sh 'yarn install'
-            sh 'yarn run lighthouse:ci'
-            sh 'cat lighthouse-report.html | true'
+            sh '(cd frontend && yarn install)'
+            sh '(cd frontend && yarn run lighthouse:ci)'
+            sh '(cd frontend && cat lighthouse-report.html | true)'
           }
-          // post {
-          //   always {
-          //     publishHTML (target: [
-          //       allowMissing: false,
-          //       alwaysLinkToLastBuild: false,
-          //       keepAll: true,
-          //       reportDir: '.',
-          //       reportFiles: 'lighthouse-report.html',
-          //       reportName: "Lighthouse"
-          //     ])
-          //   }
-          // }
         }
       }
     }

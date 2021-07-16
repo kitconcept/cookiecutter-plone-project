@@ -1,6 +1,7 @@
 {
-  "project_title": "ProjectTitle",
-  "project_namespace": "projecttitle",
-  "project_name": "projectname",
+  "repository": "project",
+  "project_title": "Project Title",
+  "project_namespace": "project",
+  "project_name": "core",
   "_extensions": ["jinja2_time.TimeExtension"]
 }

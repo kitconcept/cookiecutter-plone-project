@@ -1,1 +1,5 @@
 cookiecutter
+pytest
+pytest-cookies
+sh
+black

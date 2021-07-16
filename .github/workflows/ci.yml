@@ -7,7 +7,6 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8]
-        plone-version: [5.2]
 
     steps:
       # git checkout
@@ -28,14 +27,13 @@ jobs:
             ${{ runner.os }}-pip-
 
       # python install
-      - run: pip install virtualenv
-      - run: pip install wheel
       - name: pip install
-        run: pip install -r requirements.txt
+        run: |
+          pip install virtualenv
+          pip install wheel
+          pip install -r requirements.txt
 
-      # generate
-      - run: cookiecutter . --no-input
-      - run: (cd projecttitle.projectname && python3 -m venv .)
-      - run: (cd projecttitle.projectname && bin/pip install -r requirements.txt)
-      - run: (cd projecttitle.projectname && bin/buildout)
-      - run: (cd projecttitle.projectname && bin/test)
+      # Test
+      - name: Run tests
+        run: |
+          pytest tests

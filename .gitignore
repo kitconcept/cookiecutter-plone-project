@@ -1,9 +1,3 @@
-.env
-.Python
-bin/
-include/
-lib/
-pip-selfcheck.json
-.vscode
-
-projecttitle.projectname/
+.pytest_cache
+.python-version
+project

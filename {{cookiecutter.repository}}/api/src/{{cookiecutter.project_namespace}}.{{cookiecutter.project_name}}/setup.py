@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 """Installer for the {{cookiecutter.project_namespace}}.{{cookiecutter.project_name}} package."""
-
 from setuptools import find_packages
 from setuptools import setup
 
@@ -8,8 +6,6 @@ from setuptools import setup
 long_description = "\n\n".join(
     [
         open("README.rst").read(),
-        open("CONTRIBUTORS.rst").read(),
-        open("CHANGES.rst").read(),
     ]
 )
 
@@ -19,7 +15,6 @@ setup(
     version="1.0.0a1",
     description="",
     long_description=long_description,
-    # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
@@ -32,7 +27,7 @@ setup(
     keywords="Python Plone",
     author="kitconcept GmbH",
     author_email="info@kitconcept.com",
-    url="https://github.com/kitconcept/{{cookiecutter.project_namespace}}",
+    url="https://github.com/kitconcept/{{cookiecutter.repository}}",
     license="GPL version 2",
     packages=find_packages("src", exclude=["ez_setup"]),
     namespace_packages=["{{cookiecutter.project_namespace}}"],

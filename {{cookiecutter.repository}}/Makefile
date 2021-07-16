@@ -27,13 +27,13 @@ build:  ## Build
 .PHONY: build-frontend
 build-frontend:  ## Build React Frontend
 	@echo "Build Frontend"
-	yarn
-	yarn build
+	(cd frontend && yarn)
+	(cd frontend && yarn build)
 
 .PHONY: start-frontend
 start-frontend:  ## Start React Frontend
 	@echo "Start Frontend"
-	yarn start
+	(cd frontend && yarn start)
 
 api/bin/pip:
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
@@ -72,7 +72,7 @@ build-frontend-live: ## Build Frontend Live
 	@echo "$(GREEN)==> Build Frontend Live$(RESET)"
 	git fetch --all && git reset --hard origin/main
 	yarn install
-	PORT=MODIFYME RAZZLE_API_PATH=https://MODIFYME/api yarn build
+	(cd frontend && PORT=MODIFYME RAZZLE_API_PATH=https://MODIFYME/api yarn build)
 	pm2 restart huberlin-exzellenz-volto
 
 .PHONY: clean
@@ -94,7 +94,7 @@ test:
 .PHONY: test-frontend
 test-frontend: ## Run Frontend Tests
 	@echo "$(GREEN)==> Run Frontend Tests$(RESET)"
-	CI=true yarn test
+	(cd frontend && CI=true yarn test)
 
 .PHONY: test-backend
 test-backend: ## Run Backend Tests
@@ -104,7 +104,7 @@ test-backend: ## Run Backend Tests
 .PHONY: test-acceptance
 test-acceptance: ## Run Acceptance Tests
 	@echo "$(GREEN)==> Run Acceptance Tests$(RESET)"
-	yarn ci:cypress:run
+	(cd frontend && yarn ci:cypress:run)
 
 .PHONY: start-backend
 start-backend: ## Start Plone Backend
@@ -119,12 +119,12 @@ test-acceptance-start-backend: ## Start Test Plone Backend
 .PHONY: test-acceptance-start-frontend
 test-acceptance-start-frontend: ## Start Test Volto Frontend
 	@echo "$(GREEN)==> Start Test Volto Frontend$(RESET)"
-	RAZZLE_API_PATH=http://localhost:55001/plone yarn build && NODE_ENV=production node build/server.js
+	(cd frontend && RAZZLE_API_PATH=http://localhost:55001/plone yarn build && NODE_ENV=production node build/server.js)
 
 .PHONY: test-acceptance-start-tests
 test-acceptance-start-tests: ## Start Test
 	@echo "$(GREEN)==> Start Test$(RESET)"
-	NODE_ENV=development yarn cypress open
+	(cd frontend && NODE_ENV=development yarn cypress open)
 
 .PHONY: start-test-backend
 start-test-backend: ## Start Plone Test Backend
@@ -134,9 +134,9 @@ start-test-backend: ## Start Plone Test Backend
 .PHONY: start-test-frontend
 start-test-frontend: ## Start Volto Test Frontend
 	@echo "$(GREEN)==> Start Volto Test Frontend$(RESET)"
-	RAZZLE_API_PATH=http://localhost:55001/plone yarn build && NODE_ENV=production node build/server.js
+	(cd frontend && RAZZLE_API_PATH=http://localhost:55001/plone yarn build && NODE_ENV=production node build/server.js)
 
 .PHONY: start-test
 start-test: ## Start Tests
 	@echo "$(GREEN)==> Start Test$(RESET)"
-	NODE_ENV=development yarn cypress open
+	(cd frontend && NODE_ENV=development yarn cypress open)
