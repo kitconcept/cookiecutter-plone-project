@@ -28,7 +28,6 @@ clean: ## Clean
 build: ## Create virtualenv and install dependencies
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
 	python3 -m venv .
-	bin/pip install pip --upgrade
 	bin/pip install -r requirements.txt --upgrade
 
 .PHONY: generate
@@ -42,8 +41,7 @@ test: ## Create a sample package and tests it (runs buildout)
 	@echo "$(GREEN)==> Creating new test package$(RESET)"
 	rm -rf projecttitle.projectname
 	./bin/cookiecutter . --no-input
-	(cd projecttitle.projectname && virtualenv -p python3 --clear .)
-	(cd projecttitle.projectname && bin/pip install pip --upgrade)
+	(cd projecttitle.projectname && python3 -m venv .)
 	(cd projecttitle.projectname && bin/pip install -r requirements.txt)
 	(cd projecttitle.projectname && bin/buildout)
 	(cd projecttitle.projectname && bin/test)
